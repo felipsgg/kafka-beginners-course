@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @Validated
@@ -27,6 +28,12 @@ public class KafkaController {
     public void producerDemoWithCallback(@RequestParam("message") @Valid @NotNull String message,
                                          @RequestParam("iterations") @Valid @NotNull @Positive Integer iteratons) {
         service.producerDemoWithCallback(message, iteratons);
+    }
+
+    @PostMapping("producer/demo-keys")
+    public void producerDemoWithCallback(@RequestParam("message") @Valid @NotNull String message)
+            throws ExecutionException, InterruptedException {
+        service.producerDemoWithKeys(message);
     }
 
 }
