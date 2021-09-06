@@ -12,4 +12,7 @@ public interface KafkaService {
 
     void consumerSimpleDemo();
 
+    void consumerDemoAssignSeek();
+
+
 }

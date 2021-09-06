@@ -31,14 +31,20 @@ public class KafkaController {
     }
 
     @PostMapping("producer/demo-keys")
-    public void producerDemoWithCallback(@RequestParam("message") @Valid @NotNull String message)
+    public void producerDemoWithKeys(@RequestParam("message") @Valid @NotNull String message)
             throws ExecutionException, InterruptedException {
         service.producerDemoWithKeys(message);
     }
 
     @PostMapping("consumer/simple-demo")
-    public void producerSimpleDemo () {
+    public void consumerSimpleDemo () {
         service.consumerSimpleDemo();
     }
+
+    @PostMapping("consumer/demo-assign-seek")
+    public void consumerDemoAssignSeek () {
+        service.consumerDemoAssignSeek();
+    }
+
 
 }
