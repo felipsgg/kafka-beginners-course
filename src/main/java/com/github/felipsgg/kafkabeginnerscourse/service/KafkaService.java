@@ -10,4 +10,6 @@ public interface KafkaService {
 
     void producerDemoWithKeys(String message) throws ExecutionException, InterruptedException;
 
+    void consumerSimpleDemo();
+
 }

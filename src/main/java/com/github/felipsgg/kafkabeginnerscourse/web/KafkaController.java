@@ -36,4 +36,9 @@ public class KafkaController {
         service.producerDemoWithKeys(message);
     }
 
+    @PostMapping("consumer/simple-demo")
+    public void producerSimpleDemo () {
+        service.consumerSimpleDemo();
+    }
+
 }
