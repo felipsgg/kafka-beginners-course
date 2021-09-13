@@ -46,5 +46,10 @@ public class KafkaController {
         service.consumerDemoAssignSeek();
     }
 
+    @PostMapping("real-world-example")
+    public void realWorldExample () {
+        service.realWorldExample ();
+    }
+
 
 }

@@ -14,5 +14,6 @@ public interface KafkaService {
 
     void consumerDemoAssignSeek();
 
+    void realWorldExample();
 
 }
