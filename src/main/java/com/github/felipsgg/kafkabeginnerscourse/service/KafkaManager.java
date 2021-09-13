@@ -318,8 +318,7 @@ public class KafkaManager implements KafkaService {
 
 
         // 2. Create a Kafka producer
-
-
+        KafkaProducer<String, String> producer = createKafkaProducer();
 
 
         // 3. Loop to send tweets to Kafka
@@ -335,6 +334,17 @@ public class KafkaManager implements KafkaService {
 
             if (msg != null) {
                 logger.info(msg);
+
+                // Send data - Asynchronous
+                producer.send(new ProducerRecord<String, String>("twitter_tweets", null, msg), new Callback() {
+                    @Override
+                    public void onCompletion(RecordMetadata metadata, Exception exception) {
+                        if (exception != null) {
+                            logger.error("Something bad happened", exception);
+                        }
+                    }
+                });
+
             }
         }
 
@@ -376,6 +386,24 @@ public class KafkaManager implements KafkaService {
         return hosebirdClient;
 
     }
+
+    private KafkaProducer<String, String> createKafkaProducer() {
+
+        // Create the Producer Properties
+        // https://kafka.apache.org/26/documentation.html#producerconfigs
+        Properties properties = new Properties();
+
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        // Create Producer
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
+
+        return producer;
+
+    }
+
 
 
 }
